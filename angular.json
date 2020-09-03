@@ -51,7 +51,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/gip-styles/src/css/gip-styles.common.css",
+              "node_modules/gip-styles/src/css/gip-styles.icons.css",
+              "node_modules/gip-styles/src/css/gip-styles.water.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []
           },
