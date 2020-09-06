@@ -7,4 +7,11 @@ import { AuthService } from '@models/auth';
 })
 export class MainPageComponent {
     constructor(public auth: AuthService) {}
+
+    public ngOnInit(): void {
+        this.auth.userData = {
+            login: null,
+            password: null
+        };
+    }
 }

@@ -106,8 +106,13 @@
           "options": {
             "browserTarget": "gip-auth:build"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "gip-auth"
 }

@@ -1,50 +1,61 @@
 import { Injectable } from "@angular/core";
 import { Utils } from '../utils';
 import { Location } from "@angular/common";
+import { BehaviorSubject } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
-    /** Вход, а не регистрация. */
-    public isSignIn: boolean = true;
+    /** Режим: регистрация. */
+    public isRegisterMode: boolean = false;
     /** Логин. */
-    public login: string;
-    /** Пароль. */
-    public password: string;
+    public userData: Utils.IUser = {
+        login: null,
+        password: null
+    };
     /** Второй пароль. */
-    public secondPassword: string;
-    /** Текущий пользователь */
-    public currentUser: Utils.Types.IUser = null;
+    public verifyPassword: string;
+    /** Прогресс загрузки. */
+    public inProgress: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor(
+        public httpClient: HttpClient,
         private location: Location
     ) {}
 
     /** Валидация для роутинга. */
     public canActivate(): boolean {
-        if (this.currentUser) {
+        if (window.localStorage.getItem(Utils.LOGIN)) {
             this.location.back();
         }
-        return !this.currentUser;
+        return true;
     }
 
     /** Вход. */
-    public signIn(): void {
-        console.log(this.login, this.password);
-        // this.location.back();
+    public login(): void {
+        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/signIn`, this.userData).pipe(
+            filter(response => !!response.accessToken),
+            tap(response => window.localStorage.setItem("login", response.login)),
+            tap(() => this.location.back())
+        ).subscribe();
     }
 
-    /** Вход. */
-    public signUp(): void {
-        if (this.password !== this.secondPassword) {
+    /** Регистрация. */
+    public register(): void {
+        if (this.userData.password !== this.verifyPassword) {
             window.alert("Пароли не совпадают.");
             return;
         }
-        console.log(this.login, this.password);
-        // this.location.back();
+        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/signUp`, this.userData).pipe(
+            filter(response => !!response.accessToken),
+            tap(response => window.localStorage.setItem("login", response.login)),
+            tap(() => this.location.back())
+        ).subscribe();
     }
 
-    /** Переключение режима авторизации и регистрации. */
+    /** Переключение между режимами авторизации и регистрации. */
     public toggle(): void {
-        this.isSignIn = !this.isSignIn;
+        this.isRegisterMode = !this.isRegisterMode;
     }
 }
