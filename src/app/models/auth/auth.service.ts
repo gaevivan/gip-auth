@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Utils } from '../utils';
 import { Location } from "@angular/common";
-import { BehaviorSubject } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { tap, filter, catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
+    /** Отображение формы. */
+    public display = false;
     /** Режим: регистрация. */
     public isRegisterMode: boolean = false;
-    /** Логин. */
+    /** Данные пользователя. */
     public userData: Utils.IUser = {
         login: null,
         password: null
@@ -25,18 +27,31 @@ export class AuthService {
     ) {}
 
     /** Валидация для роутинга. */
-    public canActivate(): boolean {
-        if (window.localStorage.getItem(Utils.LOGIN)) {
-            this.location.back();
+    public canActivate(): Observable<boolean> {
+        const jwt: string = window.localStorage.getItem(Utils.STORAGE_KEY);
+        if (!jwt) {
+            this.display = true;
+            return of(true);
         }
-        return true;
+        return this.httpClient.post(`${Utils.SERVER}/is-signed`, {jwt}).pipe(
+            map(() => {
+                this.location.back();
+                return false;
+            }),
+            catchError(() => {
+                window.localStorage.removeItem(Utils.STORAGE_KEY);
+                this.display = true;
+                return of([]);
+            }),
+            map(() => true)
+        );
     }
 
     /** Вход. */
     public login(): void {
-        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/signIn`, this.userData).pipe(
+        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/sign-in`, this.userData).pipe(
             filter(response => !!response.accessToken),
-            tap(response => window.localStorage.setItem("login", response.login)),
+            tap(response => window.localStorage.setItem(Utils.STORAGE_KEY, response.accessToken)),
             tap(() => this.location.back())
         ).subscribe();
     }
@@ -47,15 +62,22 @@ export class AuthService {
             window.alert("Пароли не совпадают.");
             return;
         }
-        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/signUp`, this.userData).pipe(
+        this.httpClient.post<Utils.IResponse>(`${Utils.SERVER}/sign-up`, this.userData).pipe(
             filter(response => !!response.accessToken),
-            tap(response => window.localStorage.setItem("login", response.login)),
-            tap(() => this.location.back())
+            tap(response => window.localStorage.setItem(Utils.STORAGE_KEY, response.accessToken)),
+            tap(() => this.location.back()),
+            catchError((error) => this.userExistError(error.error))
         ).subscribe();
     }
 
     /** Переключение между режимами авторизации и регистрации. */
     public toggle(): void {
         this.isRegisterMode = !this.isRegisterMode;
+    }
+
+    /** Ошибка уже существующего пользователя. */
+    private userExistError(text: string): Observable<never> {
+        alert(text);
+        return throwError(text);
     }
 }

@@ -1,5 +1,5 @@
 export module Utils {
-    export const LOGIN: string = "login";
+    export const STORAGE_KEY: string = "jwt";
     export const SERVER: string = "https://us-central1-jsondb-d8a6a.cloudfunctions.net/app";
     export interface IResponse {
         login: string;
