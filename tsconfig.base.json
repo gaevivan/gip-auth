@@ -1,20 +1,43 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "compileOnSave": false,
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": "./",
+      "declaration": false,
+      "downlevelIteration": true,
+      "emitDecoratorMetadata": false,
+      "experimentalDecorators": true,
+      "lib": ["dom", "dom.iterable", "es2017", "es2018", "es2019", "es2020", "esnext"],
+      "importHelpers": true,
+      "locale": "en",
+      "module": "UMD",
+      "moduleResolution": "node",
+      "newLine": "lf",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "esModuleInterop": true,
+      "outDir": "./dist/out-tsc",
+      "paths": {
+        "@angular/*": ["./node_modules/@angular/*"],
+        "@node_modules/*": ["./node_modules/*"],
+        "@app/*": ["./src/app/*"],
+        "@pages/*": ["./src/app/pages/*"],
+        "@shared/*": ["./src/app/shared/*"],
+        "@environment": ["./src/environments/environment.ts"]
+      },
+      "plugins": [
+        {
+          "name": "@angular/language-service"
+        }
+      ],
+      "pretty": true,
+      "removeComments": true,
+      "sourceMap": true,
+      "skipLibCheck": true,
+      "target": "ES5",
+      "typeRoots": ["node_modules/@types"],
+      "importsNotUsedAsValues": "remove"
+    },
+    "exclude": ["node_modules"]
   }
-}
+  

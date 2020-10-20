@@ -1,15 +1,10 @@
-import { Component } from "@angular/core";
-import { Title } from "@angular/platform-browser";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
-  template: `<router-outlet></router-outlet>`,
-  styles: [],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(public title: Title) {}
-
-  public ngOnInit(): void {
-    this.title.setTitle("Авторизация");
-  }
+  title = 'gip-auth';
 }

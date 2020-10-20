@@ -7,8 +7,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true,
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -40,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "build",
+            "outputPath": "dist/gip-auth",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,11 +49,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/gip-styles/src/css/gip-styles.common.css",
-              "node_modules/gip-styles/src/css/gip-styles.icons.css",
-              "node_modules/gip-styles/src/css/gip-styles.water.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -106,13 +100,8 @@
           "options": {
             "browserTarget": "gip-auth:build"
           }
-        },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {}
         }
       }
-    }
-  },
+    }},
   "defaultProject": "gip-auth"
 }

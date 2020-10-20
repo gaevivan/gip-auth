@@ -1,19 +1,29 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": [],
-    "paths": {
-        "@models/*": ["src/app/models/*"],
-        "@components/*": ["src/app/components/*"]
-    }
+  "angularCompilerOptions": {
+    "allowEmptyCodegenFiles": false,
+    "annotationsAs": "static fields",
+    "annotateForClosureCompiler": false,
+    "disableExpressionLowering": true,
+    "disableTypeScriptVersionCheck": false,
+    "enableIvy": true,
+    "enableResourceInlining": false,
+    "enableLegacyTemplate": false,
+    "fullTemplateTypeCheck": true,
+    "generateCodeForLibraries": true,
+    "preserveWhitespaces": false,
+    "skipMetadataEmit": false,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": false,
+    "strictInjectionParameters": true,
+    "strictTemplates": true,
+    "trace": false
   },
-  "include": [
-      "src/**/*.ts"
-  ],
-  "exclude": [
-      "**/*.prod.ts",
-      "**/*.spec.ts"
-  ]
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2020"
+  },
+  "extends": "./tsconfig.base.json",
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"],
+  "exclude": ["src/**/*.worker.ts"]
 }
