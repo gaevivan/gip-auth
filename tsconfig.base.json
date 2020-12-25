@@ -20,10 +20,10 @@
       "paths": {
         "@angular/*": ["./node_modules/@angular/*"],
         "@node_modules/*": ["./node_modules/*"],
+        "@environment": ["./src/environments/environment.ts"],
         "@app/*": ["./src/app/*"],
-        "@pages/*": ["./src/app/pages/*"],
+        "@features/*": ["./src/app/features/*"],
         "@shared/*": ["./src/app/shared/*"],
-        "@environment": ["./src/environments/environment.ts"]
       },
       "plugins": [
         {
