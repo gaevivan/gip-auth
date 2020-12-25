@@ -6,6 +6,11 @@ import { RecordPageFeatureModule } from "./features/record-page/record-page.modu
 
 const ROUTES: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'records'
+  },
+  {
     path: "records",
     loadChildren: (): Promise<Type<RecordListPageFeatureModule>> =>
       import("./features/record-list-page/record-list-page.module").then(
@@ -13,7 +18,7 @@ const ROUTES: Routes = [
       ),
   },
   {
-    path: "records/:id",
+    path: "records/:index",
     loadChildren: (): Promise<Type<RecordPageFeatureModule>> =>
       import("./features/record-page/record-page.module").then(
         (module) => module.RecordPageFeatureModule

@@ -1,0 +1,45 @@
+<div class="record">
+  <div class="record__header record-header">
+    <ng-container [ngTemplateOutlet]="title"></ng-container>
+    <ng-container *ngIf="withLinkIndex; else noLinkIndex">
+      <ng-container [ngTemplateOutlet]="linkIndex"></ng-container>
+    </ng-container>
+  </div>
+  <div class="record__body">
+    <div class="record__content">
+      <ng-container [ngTemplateOutlet]="text"></ng-container>
+    </div>
+    <div class="record__additional">
+      <div class="record__item">
+        <div class="record__author">assignee: {{ record.assignee.name }}</div>
+      </div>
+      <div class="record__item">
+        <div class="record__relate">
+          relates: {{ relateListLength$ | async }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #text>
+  <p class="recort__text">{{ record.text }}</p>
+</ng-template>
+
+<ng-template #title>
+  <div class="record-header__title">
+    {{ record.title }}
+  </div>
+</ng-template>
+
+<ng-template #linkIndex>
+  <a class="record-header__index" [routerLink]="['/records/' + record.index]">
+    #{{ record.index }}
+  </a>
+</ng-template>
+
+<ng-template #noLinkIndex>
+  <div class="record-header__item record-header__index">
+    #{{ record.index }}
+  </div>
+</ng-template>

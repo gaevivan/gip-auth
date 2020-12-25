@@ -11,12 +11,21 @@ import { createSelector, State } from "@ngxs/store";
 })
 @Injectable()
 export class RecordsState {
-  public static getById(recordId: Uuid): (recordList: Record[]) => Record {
+  public static getRecordById(recordId: Uuid): (recordList: Record[]) => Record {
     return createSelector([RecordsState], (recordList: Record[]) => {
       if (!Array.isArray(recordList) || isEmpty(recordList)) {
         return null;
       }
       return recordList.find((recordItem: Record) => recordItem.id === recordId);
+    });
+  }
+
+  public static getRecordListByProjectId(projectId: Uuid): (recordList: Record[]) => Record[] {
+    return createSelector([RecordsState], (recordList: Record[]) => {
+      if (!Array.isArray(recordList) || isEmpty(recordList)) {
+        return [];
+      }
+      return recordList.filter((record: Record) => record.project.id === projectId);
     });
   }
 }

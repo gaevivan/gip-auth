@@ -8,6 +8,8 @@ import { RecordsState } from './shared/stores/records/records.store';
 import { ProjectsState } from './shared/stores/projects/projects.store';
 import { UsersState } from './shared/stores/users/users.store';
 import { AppRoutingModule } from './app-routing.module';
+import { CurrentProjectState } from './shared/stores/current-project/current-project.store';
+import { CredentialsFeatureModule } from './features/credentials/credentials.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,10 @@ import { AppRoutingModule } from './app-routing.module';
     NgxsModule.forRoot([
       RecordsState,
       ProjectsState,
-      UsersState
+      UsersState,
+      CurrentProjectState,
     ]),
+    CredentialsFeatureModule
   ],
   providers: [],
   bootstrap: [AppComponent]

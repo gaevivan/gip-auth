@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from "@angular/core";
 import { Record } from '@shared/entities/record.entity';
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: 'app-record-card',
@@ -8,8 +9,9 @@ import { Record } from '@shared/entities/record.entity';
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecordCardComponent implements OnChanges {
+export class RecordCardComponent {
   @Input() public readonly record: Record;
 
-  public ngOnChanges(): void {}
+  public readonly relateListLength$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
 }

@@ -9,6 +9,7 @@ body {
     position: fixed;
     overflow-y: auto;
     overflow-x: hidden;
+    background-color: whitesmoke;
     margin: 0;
     font-family: 'Courier New', Courier, monospace;
     font-size: 10pt;
