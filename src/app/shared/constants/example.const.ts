@@ -1,4 +1,4 @@
-import { Issue } from "../entities/issue.entity";
+import { Record } from "../entities/record.entity";
 import { Project } from "../entities/project.entity";
 import { User } from "../entities/user.entity";
 import { generateUuid } from "../functions/generate-uuid.function";
@@ -8,9 +8,9 @@ import { Uuid } from "../types/uuid.type";
 interface Example {
   project1: Uuid,
   project2: Uuid,
-  issue1: Uuid,
-  issue2: Uuid,
-  issue3: Uuid,
+  record1: Uuid,
+  record2: Uuid,
+  record3: Uuid,
   user1: Uuid,
   user2: Uuid,
   admin: Uuid,
@@ -19,9 +19,9 @@ interface Example {
 const EXAMPLE_UUID_OBJECT: Example = {
   project1: generateUuid(),
   project2: generateUuid(),
-  issue1: generateUuid(),
-  issue2: generateUuid(),
-  issue3: generateUuid(),
+  record1: generateUuid(),
+  record2: generateUuid(),
+  record3: generateUuid(),
   user1: generateUuid(),
   user2: generateUuid(),
   admin: generateUuid(),
@@ -67,43 +67,43 @@ const PROJECT_2: Project<Date> = {
   created: YESTERDAY,
   updated: TODAY
 };
-const ISSUE_1: Issue<Date> = {
-  id: EXAMPLE_UUID_OBJECT.issue1,
+const RECORD_1: Record<Date> = {
+  id: EXAMPLE_UUID_OBJECT.record1,
   created: YESTERDAY,
   updated: TODAY,
   index: 1,
-  title: 'Issue 1',
-  text: 'Issue 1 text \n second row',
+  title: 'record 1',
+  text: 'record 1 text \n second row',
   author: USER_1,
   assignee: USER_1,
   ancestor: null,
   project: PROJECT_1
 };
-const ISSUE_2: Issue<Date> = {
-  id: EXAMPLE_UUID_OBJECT.issue2,
+const RECORD_2: Record<Date> = {
+  id: EXAMPLE_UUID_OBJECT.record2,
   created: YESTERDAY,
   updated: TODAY,
   index: 2,
-  title: 'Issue 2',
-  text: 'Issue 2 text \n second row',
+  title: 'record 2',
+  text: 'record 2 text \n second row',
   author: USER_1,
   assignee: USER_2,
-  ancestor: ISSUE_1,
+  ancestor: RECORD_1,
   project: PROJECT_1
 };
-const ISSUE_3: Issue<Date> = {
-  id: EXAMPLE_UUID_OBJECT.issue3,
+const RECORD_3: Record<Date> = {
+  id: EXAMPLE_UUID_OBJECT.record3,
   created: YESTERDAY,
   updated: TODAY,
   index: 1,
-  title: 'admin issue 1',
-  text: 'admin issue 1 text \n second row',
+  title: 'admin record 1',
+  text: 'admin record 1 text \n second row',
   author: ADMIN_USER,
   assignee: ADMIN_USER,
   ancestor: null,
   project: PROJECT_2
 };
 
-export const ISSUES_EXAMPLE: Issue<Date>[] = [ISSUE_1, ISSUE_2, ISSUE_3];
+export const RECORDS_EXAMPLE: Record<Date>[] = [RECORD_1, RECORD_2, RECORD_3];
 export const PROJECTS_EXAMPLE: Project<Date>[] = [PROJECT_1, PROJECT_2];
 export const USERS_EXAMPLE: User<Date>[] = [USER_2, USER_1, ADMIN_USER];

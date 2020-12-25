@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.record-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.record-list__item {
+  display: block;
+  flex-shrink: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}

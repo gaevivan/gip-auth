@@ -1,17 +1,35 @@
-import { NgModule, Type } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PagesModule } from './features/pages/pages.module';
+import { NgModule, Type } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { NotFoundPageFeatureModule } from "./features/not-found-page/not-found-page.module";
+import { RecordListPageFeatureModule } from "./features/record-list-page/record-list-page.module";
+import { RecordPageFeatureModule } from "./features/record-page/record-page.module";
 
-const routes: Routes = [
-    {
-        path: '**',
-        loadChildren: (): Promise<Type<PagesModule>> =>
-            import('./features/pages/pages.module').then((module) => module.PagesModule)
-    }
+const ROUTES: Routes = [
+  {
+    path: "records",
+    loadChildren: (): Promise<Type<RecordListPageFeatureModule>> =>
+      import("./features/record-list-page/record-list-page.module").then(
+        (module) => module.RecordListPageFeatureModule
+      ),
+  },
+  {
+    path: "records/:id",
+    loadChildren: (): Promise<Type<RecordPageFeatureModule>> =>
+      import("./features/record-page/record-page.module").then(
+        (module) => module.RecordPageFeatureModule
+      ),
+  },
+  {
+    path: "**",
+    loadChildren: (): Promise<Type<NotFoundPageFeatureModule>> =>
+      import("./features/not-found-page/not-found-page.module").then(
+        (module) => module.NotFoundPageFeatureModule
+      ),
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(ROUTES)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

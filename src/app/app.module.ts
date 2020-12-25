@@ -4,11 +4,10 @@ import { NgxsModule } from '@ngxs/store';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
-import { PagesModule } from './features/pages/pages.module';
-import { IssuesState } from './shared/stores/issues/issues.store';
+import { RecordsState } from './shared/stores/records/records.store';
 import { ProjectsState } from './shared/stores/projects/projects.store';
 import { UsersState } from './shared/stores/users/users.store';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,13 +16,12 @@ import { UsersState } from './shared/stores/users/users.store';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PagesModule,
     SharedModule,
-    NgxsModule.forFeature([
-      IssuesState,
+    NgxsModule.forRoot([
+      RecordsState,
       ProjectsState,
       UsersState
-    ])
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,7 @@
+<div class="record-list">
+  <ng-container *ngFor="let record of recordList$ | async">
+    <div class="record-list__item" (click)="navigateToCard(record.id)">
+      <app-record-card [record]="record"></app-record-card>
+    </div>
+  </ng-container>
+</div>
